@@ -5,11 +5,12 @@ _ = require 'lodash'
 
 through2 = require 'through2'
 
-module.exports = (localeFile, localeCode = 'en', blog) ->
+module.exports = (localeCode = 'en', blog) ->
     require "moment/locale/#{localeCode}"
     moment.locale localeCode
     parser = new Parser
     compiler = new Compiler
+    localeFile = "#{__dirname}/locales/post.ar.l20n"
     localeFileContent = fs.readFileSync(localeFile)
     blog = _.defaults blog, dateFormat: 'LL'
 
