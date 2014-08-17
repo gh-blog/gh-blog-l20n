@@ -5,7 +5,7 @@ _ = require 'lodash'
 
 through2 = require 'through2'
 
-module.exports = (localeFile, localeCode='en', blog) ->
+module.exports = (localeFile, localeCode = 'en', blog) ->
     require "moment/locale/#{localeCode}"
     moment.locale localeCode
     parser = new Parser
@@ -14,7 +14,7 @@ module.exports = (localeFile, localeCode='en', blog) ->
     blog = _.defaults blog, dateFormat: 'LL'
 
     compile = ->
-        code = localeFileContent.toString();
+        code = localeFileContent.toString()
         ast = parser.parse code
         compiler.compile ast
 
