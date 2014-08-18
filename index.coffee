@@ -6,12 +6,23 @@ _ = require 'lodash'
 through2 = require 'through2'
 
 module.exports = (localeCode, blog) ->
-    require "moment/locale/#{localeCode || blog.language || 'en'}"
-    moment.locale localeCode
     parser = new Parser
     compiler = new Compiler
-    localeFile = "#{__dirname}/locales/post.ar.l20n"
-    localeFileContent = fs.readFileSync(localeFile)
+    localeCode = localeCode.toLowerCase()
+    localeFile = "#{__dirname}/locales/post.#{localeCode}.l20n"
+    try
+        if localeCode isnt 'en-us'
+            require "moment/locale/#{localeCode || blog.language || 'en-us'}"
+
+        moment.locale localeCode
+        localeFileContent = fs.readFileSync(localeFile)
+    catch e
+        # @TODO: handle errors
+        console.log e
+        throw new Error 'Language specified for l20n does not currently have
+        a translation, please contribute one at https://github.com/forabi/\
+        pipelog-l20n'
+
     blog = _.defaults blog, dateFormat: 'LL'
 
     compile = ->
@@ -32,13 +43,12 @@ module.exports = (localeCode, blog) ->
                         try file.strings[key] = entry.getString data
 
                 file.formatDate = (date) ->
-                    moment(date).format(blog.dateFormat)
+                    moment(date).format blog.dateFormat
 
-                done null, file
             catch e
                 console.log 'L20n error:', e
-                done e
-        else
-            done null, file
+                return done e, file
+
+        done null, file
 
     through2.obj processFile
