@@ -1,0 +1,28 @@
+/* Variables */
+<language 'en'>
+<dir 'ltr'>
+<dateFormat 'LL'>
+
+/* Displayed when JavaScript is disabled in the browser */
+<noScript '''
+    <b>Please enable JavaScript in your browser for a better experience.<b>
+'''>
+
+/* UI */
+<searchPlaceholder 'Search in the blog'>
+
+/* Post */
+<author
+    '<a href="{{ $post.author.url }}">{{ $post.author.name }}</a>'
+>
+<wasWritten '{{ $post.dateAdded.toLocaleString() }}'>
+
+<writtenBy[$post.type] {
+    text: 'Written by {{ author }}',
+    *other: 'Posted by {{ author }}'
+}
+>
+
+<modifiedOn 'last modified'>
+
+<date($dateString) { '{{ $dateString }}' }>
