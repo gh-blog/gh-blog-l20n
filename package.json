@@ -1,17 +1,17 @@
 {
-  "name": "pipelog-l20n",
+  "name": "gh-blog-l20n",
   "version": "0.0.0",
-  "description": "l20n next-gen localization plugin for Pipelog.",
+  "description": "l20n next-gen localization plugin for gh-blog.",
   "main": "index.js",
   "scripts": {
     "test": "node test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/forabi/pipelog-l20.git"
+    "url": "https://github.com/gh-blog/gh-blog-l20.git"
   },
   "keywords": [
-    "pipelog-plugin",
+    "gh-blog-plugin",
     "l20n",
     "localization",
     "translation",
@@ -22,7 +22,7 @@
   "author": "Muhammad Fawwaz Orabi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/forabi/pipelog-l20/issues"
+    "url": "https://github.com/gh-blog/gh-blog-l20/issues"
   },
-  "homepage": "https://github.com/forabi/pipelog-l20"
+  "homepage": "https://github.com/gh-blog/gh-blog-l20"
 }
