@@ -15,7 +15,7 @@ module.exports = (localeCode, blog) ->
             require "moment/locale/#{localeCode || blog.language || 'en-us'}"
 
         moment.locale localeCode
-        localeFileContent = fs.readFileSync(localeFile)
+        localeFileContent = fs.readFileSync localeFile
     catch e
         # @TODO: handle errors
         console.log e
@@ -36,15 +36,18 @@ module.exports = (localeCode, blog) ->
             data.post = _.cloneDeep _.omit file, 'contents', '$'
 
             try
+                file.formatDate = (date) ->
+                    moment(date).format blog.dateFormat
+
                 entries = compile localeFile
                 file.strings = { }
                 for key, entry of entries
                     if !entry.expression
-                        try file.strings[key] = entry.getString data
-
-                file.formatDate = (date) ->
-                    moment(date).format blog.dateFormat
-
+                        try
+                            file.strings[key] = entry.getString data
+                        # catch e
+                        #     throw e
+                            # @TODO: handle
             catch e
                 console.log 'L20n error:', e
                 return done e, file
