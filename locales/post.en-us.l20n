@@ -15,7 +15,7 @@
 <author
     '<a href="{{ $post.author.url }}">{{ $post.author.name }}</a>'
 >
-<wasWritten '{{ $post.dateAdded.toLocaleString() }}'>
+<wasWritten '{{ $post.created.date }}'>
 
 <writtenBy[$post.type] {
     text: 'Written by {{ author }}',

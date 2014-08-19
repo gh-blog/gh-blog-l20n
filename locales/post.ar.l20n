@@ -15,7 +15,7 @@
 <author
     '<a href="{{ $post.author.url }}">{{ $post.author.name }}</a>'
 >
-<wasWritten 'كُتبت {{ $post.dateAdded.toLocaleString() }}'>
+<wasWritten 'كُتبت {{ date($post.created.date) }}'>
 
 <writtenBy[$post.author.gender, $post.type] {
     female: {
