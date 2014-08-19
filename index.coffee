@@ -20,8 +20,8 @@ module.exports = (localeCode, blog) ->
         # @TODO: handle errors
         console.log e
         throw new Error 'Language specified for l20n does not currently have
-        a translation, please contribute one at https://github.com/forabi/\
-        pipelog-l20n'
+        a translation, please contribute one at https://github.com/gh-blog/\
+        gh-blog-l20n'
 
     blog = _.defaults blog, dateFormat: 'LL'
 
