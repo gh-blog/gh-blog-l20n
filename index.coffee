@@ -1,7 +1,11 @@
 fs = require 'fs'
 { Parser, Compiler } = require 'l20n'
 moment = require 'moment'
-_ = require 'lodash'
+_ = { 
+    omit: require 'lodash.omit'
+    cloneDeep: require 'lodash.clonedeep'
+    defaults: require 'lodash.defaults'
+}
 
 through2 = require 'through2'
 

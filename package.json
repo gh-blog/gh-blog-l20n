@@ -24,5 +24,13 @@
   "bugs": {
     "url": "https://github.com/gh-blog/gh-blog-l20/issues"
   },
-  "homepage": "https://github.com/gh-blog/gh-blog-l20"
+  "homepage": "https://github.com/gh-blog/gh-blog-l20",
+  "dependencies": {
+    "l20n": "^1.0.0-rc",
+    "lodash.clonedeep": "^2.4.1",
+    "lodash.defaults": "^2.4.1",
+    "lodash.omit": "^2.4.1",
+    "moment": "^2.8.1",
+    "through2": "^0.6.1"
+  }
 }
