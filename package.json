@@ -32,5 +32,10 @@
     "lodash.omit": "^2.4.1",
     "moment": "^2.8.1",
     "through2": "^0.6.1"
+  },
+  "gh-blog": {
+    "requires": ["info"],
+    "recommends": ["metadata", "creation-date", "modification-date"],
+    "provides": ["localization"]
   }
 }
