@@ -1,7 +1,7 @@
 fs = require 'fs'
 { Parser, Compiler } = require 'l20n'
 moment = require 'moment'
-_ = { 
+_ = {
     omit: require 'lodash.omit'
     cloneDeep: require 'lodash.clonedeep'
     defaults: require 'lodash.defaults'
@@ -13,13 +13,18 @@ module.exports = (localeCode, blog) ->
     parser = new Parser
     compiler = new Compiler
     localeCode = localeCode.toLowerCase()
-    localeFile = "#{__dirname}/locales/post.#{localeCode}.l20n"
+    localeFiles = {
+        blog: "#{__dirname}/locales/blog.#{localeCode}.l20n"
+        post: "#{__dirname}/locales/post.#{localeCode}.l20n"
+        indexPage: "#{__dirname}/locales/index_page.#{localeCode}.l20n"
+    }
+
     try
         if localeCode isnt 'en-us'
             require "moment/locale/#{localeCode || blog.language || 'en-us'}"
 
         moment.locale localeCode
-        localeFileContent = fs.readFileSync localeFile
+
     catch e
         # @TODO: handle errors
         console.log e
@@ -29,33 +34,49 @@ module.exports = (localeCode, blog) ->
 
     blog = _.defaults blog, dateFormat: 'LL'
 
-    compile = ->
+    compile = (localeFile) ->
+        localeFileContent = fs.readFileSync localeFile
         code = localeFileContent.toString()
         ast = parser.parse code
         compiler.compile ast
 
-    processFile = (file, enc, done) ->
-        if file.isPost
-            data = { blog }
-            data.post = _.cloneDeep _.omit file, 'contents', '$'
+    data = { blog }
 
+    data.blog.formatDate = (date, format = blog.dateFormat) ->
+        (moment date).format(format)
+
+    # Compile global blog strings
+    blogEntries = compile localeFiles.blog
+    data.blog.strings = { }
+    for key, entry of blogEntries
+        if not entry.expression
             try
-                file.formatDate = (date) ->
-                    moment(date).format blog.dateFormat
+                data.blog.strings[key] = entry.getString data
 
-                entries = compile localeFile
-                file.strings = { }
-                for key, entry of entries
-                    if !entry.expression
-                        try
-                            file.strings[key] = entry.getString data
-                        # catch e
-                        #     throw e
-                            # @TODO: handle
-            catch e
-                console.log 'L20n error:', e
-                return done e, file
+    processFile = (file, enc, done) ->
+        try
+            switch
+                when file.isPost then localeFile = localeFiles.post
+                when file.isIndexPage then localeFile =localeFiles.indexPage
+                else
+                    return done null, file
 
-        done null, file
+            data.file = file
+            entries = compile localeFile
+            file.strings = { }
+            for key, entry of entries
+                if not entry.expression
+                    try
+                        file.strings[key] = entry.getString data
+                    # catch e
+                    #     throw e
+                        # @TODO: handle
+
+
+            done null, file
+
+        catch e
+            console.log '[L20n] Error:', e
+            return done e, file
 
     through2.obj processFile

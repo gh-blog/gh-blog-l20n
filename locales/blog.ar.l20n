@@ -1,0 +1,19 @@
+/* Language definition */
+<language 'ar'>
+<dir 'rtl'>
+<dateFormat 'LL'>
+<plural($n) {
+    $n == 0 ? 'zero' :
+    $n == 1 ? 'one' :
+    $n == 2 ? 'two' :
+    $n % 100 >= 3 && n % 100 <= 10 ? 'few' :
+    $n % 100 >= 11 ? 'many' : 'other'
+}>
+
+/* Displayed when JavaScript is disabled in the browser */
+<noScript '''
+    <b>فعّل جافاسكربت في متصفّحك للحصول على تجربة أفضل.<b>
+'''>
+
+/* UI */
+<searchPlaceholder 'ابحث في المدونة'>
