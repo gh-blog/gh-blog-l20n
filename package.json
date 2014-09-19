@@ -1,6 +1,6 @@
 {
   "name": "gh-blog-l20n",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "l20n next-gen localization plugin for gh-blog.",
   "main": "index.js",
   "scripts": {

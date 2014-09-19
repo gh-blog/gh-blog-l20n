@@ -17,3 +17,14 @@
 
 /* UI */
 <searchPlaceholder 'ابحث في المدونة'>
+
+/* Branding */
+/* @TODO: create GitHub page for gh-blog at https://gh-blog.github.io/ */
+<brandingName 'GH-Blog'>
+<brandingLink 'https://gh-blog.github.io/'>
+<brandingCalloutLink 'https://gh-blog.github.io/getting-started.html'>
+<brandingFooter '''
+    هذه المدوّنة تعمل بنظام التّدوين
+    <a href="{{ brandingLink }}">{{ brandingName }}</a>.
+    <a href="أنشئ مدوّنتك الآن!">{{ brandingCalloutLink }}</a>
+'''>

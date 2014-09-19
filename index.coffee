@@ -9,7 +9,9 @@ _ = {
 
 through2 = require 'through2'
 
-module.exports = (localeCode, blog) ->
+module.exports = (options) ->
+    { localeCode, blog } = options
+
     parser = new Parser
     compiler = new Compiler
     localeCode = localeCode.toLowerCase()
